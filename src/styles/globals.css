@@ -1,0 +1,29 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.product-card {
+  border: 4px solid transparent;
+
+  background-clip: content-box;
+  transition: all 0.3s ease-in-out;
+}
+
+.product-card:hover {
+  border-image: linear-gradient(45deg, #6ee7b7, #ecfdf5);
+
+  border-image-slice: 1;
+  background-clip: padding-box;
+}
+
+.reviewCard {
+  border: 4px solid transparent;
+  width: 50%;
+
+  background-clip: content-box;
+  transition: all 0.3s ease-in-out;
+  border-image: linear-gradient(45deg, #6ee7b7, #ecfdf5);
+
+  border-image-slice: 1;
+  background-clip: padding-box;
+}
