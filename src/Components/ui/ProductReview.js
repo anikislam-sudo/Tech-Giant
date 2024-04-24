@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { MdDeleteForever } from "react-icons/md";
-import avatar  from "../../Assets/ertuiioo.png";
+
 import {
   useProductDetailsQuery,
   useProductReviewMutation,
@@ -92,11 +92,11 @@ const ProductReview = ({ id }) => {
             <div className="flex items-center justify-between ">
               <div className="w-10 h-10 bg-gray-300 rounded-full flex-shrink-0">
                 <Image
-                  src={avatar} // Replace with the actual path to your image in the public directory
+                  src="/5556499.png" // Replace with the actual path to your image in the public directory
                   alt="User Avatar"
                   className="w-8 h-8 pl-1   object-cover"
-                  width={15}
-                  height={15}
+                  width={25}
+                  height={25}
                 />
                 <p className="mt-2 ml-1 text-sm text-gray-700">User</p>
               </div>

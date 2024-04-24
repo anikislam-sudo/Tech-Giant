@@ -1,49 +1,47 @@
-/* eslint-disable react/jsx-key */
+
 import ProductReview from "@/Components/ui/ProductReview";
 import Image from "next/image";
 import { useRouter } from "next/router";
 
 const ProductDetailPage = ({ product }) => {
   const router = useRouter();
-  
   const { id } = router.query;
 
+  // Destructuring product data with default values to avoid potential issues
   const {
-  
-    name,
-    category,
-    price,
-    description,
-    status,
-    rating,
-    averageRating,
-    keyFeatures,
-    reviews,
-    image,
+    name = "",
+    category = "",
+    price = "",
+    description = "",
+    status = "",
+    rating = 0,
+    averageRating = 0,
+    keyFeatures = [],
+    reviews = [],
+    image = "",
   } = product || {};
 
-  let newCategory = null;
-  if (category === "cpu") {
-    newCategory = "Processor";
-  }
-  if (category === "motherboard") {
-    newCategory = "Motherboard";
-  }
-  if (category === "ram") {
-    newCategory = "Ram";
-  }
-  if (category === "psu") {
-    newCategory = "Power Supply";
-  }
-  if (category === "storage") {
-    newCategory = "Storage";
-  }
-  if (category === "monitor") {
-    newCategory = "Monitor";
-  }
-  if (category === "others") {
-    newCategory = "Others";
-  }
+  // Map category to a new category name
+  const getCategoryName = () => {
+    switch (category) {
+      case "cpu":
+        return "Processor";
+      case "motherboard":
+        return "Motherboard";
+      case "ram":
+        return "Ram";
+      case "psu":
+        return "Power Supply";
+      case "storage":
+        return "Storage";
+      case "monitor":
+        return "Monitor";
+      case "others":
+        return "Others";
+      default:
+        return "Unknown";
+    }
+  };
 
   const createSVGIcon = () => (
     <svg
@@ -75,7 +73,7 @@ const ProductDetailPage = ({ product }) => {
             <p className="bg-slate-200 text-sm py-1 px-2 rounded-full inline-block my-1">
               Price : <span className="font-medium">{price}</span>
             </p>
-            {status == "inStock" ? (
+            {status === "inStock" ? (
               <p className="bg-slate-200 text-sm py-1 px-2 rounded-full mx-3 inline-block my-1">
                 Status : <span className="font-medium">In stock</span>
               </p>
@@ -85,15 +83,15 @@ const ProductDetailPage = ({ product }) => {
               </p>
             )}
             <p className="bg-slate-200 text-sm py-1 px-2 rounded-full inline-block my-1">
-              Category : <span className="font-medium">{newCategory}</span>
+              Category : <span className="font-medium">{getCategoryName()}</span>
             </p>
           </div>
           <div className="mt-3">
             <p className="flex items-center gap-2">
               Rating :{" "}
               <span className="flex">
-                {Array.from({ length: rating }).map((_, index) => (
-                  <span className="" key={index}>
+                {Array.from({ length: rating }).map((_, id) => (
+                  <span className="" key={id}>
                     {createSVGIcon()}
                   </span>
                 ))}
@@ -102,8 +100,8 @@ const ProductDetailPage = ({ product }) => {
             <p className="flex items-center gap-2">
               Average Rating :{" "}
               <span className="flex">
-                {Array.from({ length: averageRating }).map((_, index) => (
-                  <span className="" key={index}>
+                {Array.from({ length: averageRating }).map((_, id) => (
+                  <span className="" key={id}>
                     {createSVGIcon()}
                   </span>
                 ))}
@@ -112,9 +110,10 @@ const ProductDetailPage = ({ product }) => {
           </div>
           <div>
             <h3 className="text-lg font-medium mt-3 mb-1">Key Features</h3>
-
-            {keyFeatures?.map((feature) => (
-              <p className="text-md leading-relaxed">{feature}</p>
+            {keyFeatures?.map((feature, id) => (
+              <p className="text-md leading-relaxed" key={id}>
+                {feature}
+              </p>
             ))}
           </div>
         </div>
@@ -122,11 +121,11 @@ const ProductDetailPage = ({ product }) => {
 
       <div className="mt-5 ">
         <h3 className="text-xl font-medium mb-1">Description</h3>
-        <p className="text-justify  leading-relaxed">{description}</p>
+        <p className="text-justify leading-relaxed">{description}</p>
       </div>
 
       <div className="mt-5">
-    <ProductReview id={id}></ProductReview>
+        <ProductReview id={id} ></ProductReview>
       </div>
     </div>
   );
@@ -135,12 +134,13 @@ const ProductDetailPage = ({ product }) => {
 export default ProductDetailPage;
 
 export async function getStaticPaths() {
-  const res = await fetch(`http://localhost:5000/products`);
+  const res = await fetch(`${process.env.URL}/products`);
   const products = await res.json();
+  const paths = products.map((product) => ({
+    params: { id: product._id },
+  }));
   return {
-    paths: products.map((product) => ({
-      params: { id: product._id },
-    })),
+    paths,
     fallback: true,
   };
 }
@@ -148,7 +148,12 @@ export async function getStaticPaths() {
 export const getStaticProps = async (context) => {
   try {
     const { id } = context.params;
-    const res = await fetch(`http://localhost:5000/products/${id}`);
+    const res = await fetch(`${process.env.URL}/products/${id}`);
+
+    if (!res.ok) {
+      throw new Error(`Failed to fetch product data: ${res.status}`);
+    }
+
     const data = await res.json();
 
     return {
@@ -158,9 +163,8 @@ export const getStaticProps = async (context) => {
     };
   } catch (error) {
     console.error("Error fetching product data:", error);
-
     return {
-      notFound: true, // or handle the error in another way
+      notFound: true,
     };
   }
 };

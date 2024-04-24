@@ -90,7 +90,7 @@ const PcBuildPage = () => {
                   <div className="flex justify-between items-center gap-2  p-2">
                     <div className="flex items-center w-full">
                       <div className="flex flex-col w-full max-w-[90px] rounded-md transition-all duration-200">
-                        <Image src={monitor?.image} height={35} width={35} />
+                        <Image src={monitor?.image} height={35} width={35} alt="" />
                       </div>
                       <div className="flex justify-between w-full gap-3">
                         <div>
@@ -150,6 +150,7 @@ const PcBuildPage = () => {
                           src={cpu?.image}
                           height={35}
                           width={35}
+                          alt=""
                         />
                       </div>
                       <div className="flex justify-between w-full gap-3">
@@ -211,6 +212,7 @@ const PcBuildPage = () => {
                           src={motherboard?.image}
                           height={35}
                           width={35}
+                          alt=""
                         />
                       </div>
                       <div className="flex justify-between w-full gap-3">
@@ -265,7 +267,7 @@ const PcBuildPage = () => {
                   <div className="flex justify-between items-center gap-2  p-2">
                     <div className="flex items-center w-full">
                       <div className="flex flex-col w-full max-w-[90px]  rounded-md transition-all duration-200">
-                        <Image src={ram?.image} height={35} width={35} />
+                        <Image src={ram?.image} height={35} width={35} alt="" />
                       </div>
                       <div className="flex justify-between w-full gap-3">
                         <div>
@@ -319,7 +321,7 @@ const PcBuildPage = () => {
                   <div className="flex justify-between items-center gap-2  p-2">
                     <div className="flex items-center w-full">
                       <div className="flex flex-col w-full max-w-[90px]  rounded-md transition-all duration-200">
-                        <Image src={psu?.image} height={35} width={35} />
+                        <Image src={psu?.image} height={35} width={35} alt="" />
                       </div>
                       <div className="flex justify-between w-full gap-3">
                         <div>
@@ -373,7 +375,7 @@ const PcBuildPage = () => {
                   <div className="flex justify-between items-center gap-2  p-2">
                     <div className="flex items-center w-full">
                       <div className="flex flex-col w-full max-w-[90px] rounded-md transition-all duration-200">
-                        <Image src={storage?.image} height={35} width={35} />
+                        <Image src={storage?.image} height={35} width={35}  alt=""/>
                       </div>
                       <div className="flex justify-between w-full gap-3">
                         <div>
