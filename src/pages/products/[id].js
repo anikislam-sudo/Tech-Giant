@@ -1,4 +1,3 @@
-
 import ProductReview from "@/Components/ui/ProductReview";
 import Image from "next/image";
 import { useRouter } from "next/router";
@@ -125,7 +124,8 @@ const ProductDetailPage = ({ product }) => {
       </div>
 
       <div className="mt-5">
-        <ProductReview id={id} ></ProductReview>
+        {/* Check if product is defined before rendering ProductReview */}
+        {product && <ProductReview id={id}></ProductReview>}
       </div>
     </div>
   );
@@ -134,15 +134,23 @@ const ProductDetailPage = ({ product }) => {
 export default ProductDetailPage;
 
 export async function getStaticPaths() {
-  const res = await fetch(`${process.env.URL}/products`);
-  const products = await res.json();
-  const paths = products.map((product) => ({
-    params: { id: product._id },
-  }));
-  return {
-    paths,
-    fallback: true,
-  };
+  try {
+    const res = await fetch(`${process.env.URL}/products`);
+    const products = await res.json();
+    const paths = products.map((product) => ({
+      params: { id: product._id.toString() }, // Ensure id is a string
+    }));
+    return {
+      paths,
+      fallback: true,
+    };
+  } catch (error) {
+    console.error("Error fetching product paths:", error);
+    return {
+      paths: [],
+      fallback: true,
+    };
+  }
 }
 
 export const getStaticProps = async (context) => {
