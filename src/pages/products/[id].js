@@ -134,7 +134,7 @@ const ProductDetailPage = ({ product }) => {
 export default ProductDetailPage;
 
 export async function getStaticPaths() {
-  const res = await fetch(`${process.env.URL}/products`);
+  const res = await fetch("https://tech-server-4ma6.vercel.app/products");
   const products = await res.json();
   const paths = products.map((product) => ({
     params: { id: product._id },
@@ -148,7 +148,7 @@ export async function getStaticPaths() {
 export const getStaticProps = async (context) => {
   try {
     const { id } = context.params;
-    const res = await fetch(`${process.env.URL}/products/${id}`);
+    const res = await fetch("https://tech-server-4ma6.vercel.app/products/${id}");
 
     if (!res.ok) {
       throw new Error(`Failed to fetch product data: ${res.status}`);
