@@ -1,4 +1,3 @@
-
 import SelectProductCard from "@/Components/ui/SelectProductCard";
 
 const selectCpuPage = ({ processors }) => {
@@ -21,7 +20,9 @@ const selectCpuPage = ({ processors }) => {
 
 export default selectCpuPage;
 export const getStaticProps = async () => {
-  const res = await fetch("http://localhost:5000/products?category=cpu");
+  const res = await fetch(
+    "https://tech-server-4ma6.vercel.app/products?category=cpu"
+  );
   const data = await res.json();
   return {
     props: {

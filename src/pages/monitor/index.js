@@ -18,7 +18,9 @@ const MonitorPage = ({ monitors }) => {
 export default MonitorPage;
 
 export const getStaticProps = async () => {
-  const res = await fetch("http://localhost:5000/products?category=monitor");
+  const res = await fetch(
+    "https://tech-server-4ma6.vercel.app/products?category=monitor"
+  );
   const data = await res.json();
   return {
     props: {

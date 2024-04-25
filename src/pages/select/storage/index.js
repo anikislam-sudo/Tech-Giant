@@ -1,6 +1,4 @@
-
 import SelectProductCard from "@/Components/ui/SelectProductCard";
-
 
 const selectStoragePage = ({ storages }) => {
   return (
@@ -10,9 +8,9 @@ const selectStoragePage = ({ storages }) => {
         <div className=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-5 p-3">
           {storages?.map((product) => (
             <SelectProductCard
-            product={product}
-            key={product._id}
-          ></SelectProductCard>
+              product={product}
+              key={product._id}
+            ></SelectProductCard>
           ))}
         </div>
       </div>
@@ -24,7 +22,7 @@ export default selectStoragePage;
 
 export const getStaticProps = async () => {
   const res = await fetch(
-    "http://localhost:5000/products?category=storage"
+    "https://tech-server-4ma6.vercel.app/products?category=storage"
   );
   const data = await res.json();
   return {

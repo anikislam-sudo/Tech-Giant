@@ -1,6 +1,4 @@
-
 import SelectProductCard from "@/Components/ui/SelectProductCard";
-
 
 const selectRamPage = ({ rams }) => {
   return (
@@ -9,10 +7,10 @@ const selectRamPage = ({ rams }) => {
         <h2 className="text-center text-lg font-semibold mb-3">Ram</h2>
         <div className=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-5 p-3">
           {rams?.map((product) => (
-     <SelectProductCard
-     product={product}
-     key={product._id}
-   ></SelectProductCard>
+            <SelectProductCard
+              product={product}
+              key={product._id}
+            ></SelectProductCard>
           ))}
         </div>
       </div>
@@ -24,7 +22,7 @@ export default selectRamPage;
 
 export const getStaticProps = async () => {
   const res = await fetch(
-    "http://localhost:5000/products?category=ram"
+    "https://tech-server-4ma6.vercel.app/products?category=ram"
   );
   const data = await res.json();
   return {

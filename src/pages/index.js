@@ -4,8 +4,7 @@ import FeatureCategory from "@/Components/ui/FeatureCategory";
 import ProductCard from "@/Components/ui/ProductCard";
 import SliderItem from "@/Components/ui/SliderItem";
 
-
-export default function Home({allProducts}) {
+export default function Home({ allProducts }) {
   return (
     <div max-w-7xl mx-auto pb-10 min-h-screen>
       <SliderItem></SliderItem>
@@ -34,10 +33,9 @@ export default function Home({allProducts}) {
   );
 }
 
-
 export const getStaticProps = async () => {
   const res = await fetch(
-    "http://localhost:5000/products?featured=true"
+    "https://tech-server-4ma6.vercel.app/products?featured=true"
   );
   const data = await res.json();
   return {

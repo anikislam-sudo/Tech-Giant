@@ -1,3 +1,4 @@
+
 import ProductReview from "@/Components/ui/ProductReview";
 import Image from "next/image";
 import { useRouter } from "next/router";
@@ -61,7 +62,7 @@ const ProductDetailPage = ({ product }) => {
       <div className="xl:flex">
         <div className="xl:flex-1">
           <div className="flex-1 relative w-full max-w-sm h-80 mx-auto">
-            <Image className="object-cover" fill={true} src={image} alt="" />
+            <Image className="object-cover" fill={true} src={image} alt="dgfh" />
           </div>
         </div>
         <div className="xl:flex-1">
@@ -89,8 +90,8 @@ const ProductDetailPage = ({ product }) => {
             <p className="flex items-center gap-2">
               Rating :{" "}
               <span className="flex">
-                {Array.from({ length: rating }).map((_, id) => (
-                  <span className="" key={id}>
+                {Array.from({ length: rating }).map((_, index) => (
+                  <span className="" key={index}>
                     {createSVGIcon()}
                   </span>
                 ))}
@@ -99,8 +100,8 @@ const ProductDetailPage = ({ product }) => {
             <p className="flex items-center gap-2">
               Average Rating :{" "}
               <span className="flex">
-                {Array.from({ length: averageRating }).map((_, id) => (
-                  <span className="" key={id}>
+                {Array.from({ length: averageRating }).map((_, index) => (
+                  <span className="" key={index}>
                     {createSVGIcon()}
                   </span>
                 ))}
@@ -109,8 +110,8 @@ const ProductDetailPage = ({ product }) => {
           </div>
           <div>
             <h3 className="text-lg font-medium mt-3 mb-1">Key Features</h3>
-            {keyFeatures?.map((feature, id) => (
-              <p className="text-md leading-relaxed" key={id}>
+            {keyFeatures?.map((feature, index) => (
+              <p className="text-md leading-relaxed" key={index}>
                 {feature}
               </p>
             ))}
@@ -124,8 +125,7 @@ const ProductDetailPage = ({ product }) => {
       </div>
 
       <div className="mt-5">
-        {/* Check if product is defined before rendering ProductReview */}
-        {product && <ProductReview id={id}></ProductReview>}
+        <ProductReview id={id} ></ProductReview>
       </div>
     </div>
   );
@@ -134,23 +134,15 @@ const ProductDetailPage = ({ product }) => {
 export default ProductDetailPage;
 
 export async function getStaticPaths() {
-  try {
-    const res = await fetch(`${process.env.URL}/products`);
-    const products = await res.json();
-    const paths = products.map((product) => ({
-      params: { id: product._id.toString() }, // Ensure id is a string
-    }));
-    return {
-      paths,
-      fallback: true,
-    };
-  } catch (error) {
-    console.error("Error fetching product paths:", error);
-    return {
-      paths: [],
-      fallback: true,
-    };
-  }
+  const res = await fetch(`${process.env.URL}/products`);
+  const products = await res.json();
+  const paths = products.map((product) => ({
+    params: { id: product._id },
+  }));
+  return {
+    paths,
+    fallback: true,
+  };
 }
 
 export const getStaticProps = async (context) => {

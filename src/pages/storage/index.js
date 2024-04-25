@@ -1,6 +1,5 @@
 import ProductCard from "@/Components/ui/ProductCard";
 
-
 const StoragePage = ({ storages }) => {
   return (
     <div className="max-w-7xl mx-auto min-h-screen">
@@ -20,7 +19,7 @@ export default StoragePage;
 
 export const getStaticProps = async () => {
   const res = await fetch(
-    "http://localhost:5000/products?category=storage"
+    "https://tech-server-4ma6.vercel.app/products?category=storage"
   );
   const data = await res.json();
   return {
